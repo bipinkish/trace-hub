@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
 import NavBar from "./NavBar";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -21,8 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${lato.className} antialiased`}>
-        <NavBar />
-        <main>{children}</main>
+        <Theme>
+          <NavBar />
+          <main>{children}</main>
+        </Theme>
       </body>
     </html>
   );
