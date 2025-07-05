@@ -1,13 +1,15 @@
-import type { Metadata } from "next";
 import { Lato } from "next/font/google";
-import "./globals.css";
-import NavBar from "./NavBar";
 import "@radix-ui/themes/styles.css";
+import "./theme-config.css";
+import "./globals.css";
 import { Theme } from "@radix-ui/themes";
+import NavBar from "./NavBar";
+import { Metadata } from "next";
 
 const lato = Lato({
   subsets: ["latin"],
   weight: ["400", "700"],
+  variable: "--font-lato",
 });
 
 export const metadata: Metadata = {
@@ -22,8 +24,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${lato.className} antialiased`}>
-        <Theme>
+      <body className={`${lato.variable} antialiased`}>
+        <Theme accentColor="yellow" radius="large">
           <NavBar />
           <main className="p-5">{children}</main>
         </Theme>

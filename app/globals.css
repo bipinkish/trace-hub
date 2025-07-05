@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+.radix-themes {
+  --default-font-family: var(--font-lato);
+}
+
 body {
   background: #fff;
 }
