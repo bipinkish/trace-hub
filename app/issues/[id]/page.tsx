@@ -4,6 +4,7 @@ import { Box, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import delay from "delay";
 
 interface IssueDetailsPageProps {
   params: {
@@ -29,7 +30,7 @@ const IssueDetailsPage = async ({ params }: IssueDetailsPageProps) => {
   if (!issue) {
     return notFound();
   }
-
+  await delay(2000);
   return (
     <Box>
       <Heading>{issue.title}</Heading>

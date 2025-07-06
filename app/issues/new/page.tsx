@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 import z from "zod";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 import { Box, Button, Callout, Spinner, TextField } from "@radix-ui/themes";
 import ErrorMessage from "@/app/components/ErrorMessage";
@@ -17,7 +19,11 @@ type IssueForm = z.infer<typeof createIssueSchema>;
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
-  loading: () => <Spinner size="2" />,
+  loading: () => (
+    <Box className="max-w-xl">
+      <Skeleton height="20rem" />
+    </Box>
+  ),
 });
 
 const NewIssuePage = () => {
