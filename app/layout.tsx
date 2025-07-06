@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${lato.variable} antialiased`}>
-        <Theme accentColor="yellow" radius="large">
+        <Theme accentColor="indigo" radius="large">
           <NavBar />
           <main className="p-5">{children}</main>
         </Theme>
