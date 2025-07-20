@@ -2,7 +2,7 @@ import { Lato } from "next/font/google";
 import "@radix-ui/themes/styles.css";
 import "./theme-config.css";
 import "./globals.css";
-import { Theme } from "@radix-ui/themes";
+import { Container, Theme } from "@radix-ui/themes";
 import NavBar from "./NavBar";
 import { Metadata } from "next";
 import AuthProvider from "./auth/Provider";
@@ -29,7 +29,9 @@ export default function RootLayout({
         <AuthProvider>
           <Theme accentColor="indigo" radius="large">
             <NavBar />
-            <main className="p-5">{children}</main>
+            <main className="p-5">
+              <Container>{children}</Container>
+            </main>
           </Theme>
         </AuthProvider>
       </body>
