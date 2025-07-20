@@ -1,11 +1,10 @@
-import React from "react";
-import { Box, Button, Table } from "@radix-ui/themes";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import { prisma } from "@/prisma/client";
+import { Table } from "@radix-ui/themes";
+import { IssueStatusBadge, Link } from "@/app/components";
 import IssueToolBar from "./IssueToolBar";
 
-const IssuesLoadingPage = () => {
-  const issues = [1, 2, 3, 4, 5];
+const IssuesPage = async () => {
+  const issues = await prisma.issue.findMany();
   return (
     <>
       <IssueToolBar />
@@ -13,7 +12,6 @@ const IssuesLoadingPage = () => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className="hidden md:table-cell">
               Status
             </Table.ColumnHeaderCell>
@@ -24,23 +22,16 @@ const IssuesLoadingPage = () => {
         </Table.Header>
         <Table.Body>
           {issues.map((issue) => (
-            <Table.Row key={issue}>
+            <Table.Row key={issue.id}>
               <Table.Cell>
-                <Skeleton />
-                <div className="block md:hidden">
-                  {" "}
-                  <Skeleton />
-                </div>
-              </Table.Cell>
-              <Table.Cell>
-                {" "}
-                <Skeleton />
+                <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+                <div className="block md:hidden">{issue.status}</div>
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                <Skeleton />
+                <IssueStatusBadge status={issue.status} />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                <Skeleton />
+                {issue.createdAt.toDateString()}
               </Table.Cell>
             </Table.Row>
           ))}
@@ -50,4 +41,4 @@ const IssuesLoadingPage = () => {
   );
 };
 
-export default IssuesLoadingPage;
+export default IssuesPage;

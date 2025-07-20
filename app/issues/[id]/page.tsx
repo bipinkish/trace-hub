@@ -1,10 +1,9 @@
-import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 import { prisma } from "@/prisma/client";
-import { Box, Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { Box, Flex, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
-import React from "react";
-import ReactMarkdown from "react-markdown";
-import delay from "delay";
+import EditIssueButton from "./EditIssueButton";
+import IssueDetails from "./IssueDetails";
+import DeleteIssueButton from "./DeleteIssueButton";
 
 interface IssueDetailsPageProps {
   params: {
@@ -20,7 +19,7 @@ const IssueDetailsPage = async ({ params }: IssueDetailsPageProps) => {
   const { id } = await params;
 
   if (!isValidObjectId(id)) {
-    return notFound(); // or redirect, or show custom error page
+    return notFound();
   }
 
   const issue = await prisma.issue.findUnique({
@@ -30,18 +29,17 @@ const IssueDetailsPage = async ({ params }: IssueDetailsPageProps) => {
   if (!issue) {
     return notFound();
   }
-  await delay(2000);
+
   return (
-    <Box>
-      <Heading>{issue.title}</Heading>
-      <Flex gap="3" className="my-2">
-        <IssueStatusBadge status={issue.status} />
-        <Text>{issue.createdAt.toDateString()}</Text>
+    <Grid columns={{ initial: "1", md: "5" }} gap="5">
+      <Box className="lg:col-span-4">
+        <IssueDetails issue={issue} />
+      </Box>
+      <Flex direction={"column"} gap={"4"}>
+        <EditIssueButton issueId={issue.id} />
+        <DeleteIssueButton issueId={issue.id} />
       </Flex>
-      <Card className="prose" mt="4">
-        <ReactMarkdown>{issue.description}</ReactMarkdown>
-      </Card>
-    </Box>
+    </Grid>
   );
 };
 
