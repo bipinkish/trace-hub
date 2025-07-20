@@ -6,6 +6,7 @@ import { Container, Theme } from "@radix-ui/themes";
 import NavBar from "./NavBar";
 import { Metadata } from "next";
 import AuthProvider from "./auth/Provider";
+import QueryClientProvider from "./QueryClientProvider";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -26,14 +27,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${lato.variable} antialiased`}>
-        <AuthProvider>
-          <Theme accentColor="indigo" radius="large">
-            <NavBar />
-            <main className="p-5">
-              <Container>{children}</Container>
-            </main>
-          </Theme>
-        </AuthProvider>
+        <QueryClientProvider>
+          <AuthProvider>
+            <Theme accentColor="indigo" radius="large">
+              <NavBar />
+              <main className="p-5">
+                <Container>{children}</Container>
+              </main>
+            </Theme>
+          </AuthProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );
