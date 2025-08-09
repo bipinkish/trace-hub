@@ -35,8 +35,6 @@ const IssuesPage = async ({ searchParams }: Props) => {
     where: { status: validStatus },
     orderBy: validOrderBy,
   });
-  
-  const [toggleSort, setToggleSort] = useState(false);
 
   return (
     <>
@@ -45,7 +43,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
         <Table.Header>
           <Table.Row>
             {columns.map((column) => (
-              <Table.ColumnHeaderCelleq
+              <Table.ColumnHeaderCell
                 key={column.label}
                 className={column.className}
               >
