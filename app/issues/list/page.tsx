@@ -27,7 +27,6 @@ const IssuesPage = async ({ searchParams }: Props) => {
   const { status, orderBy } = await searchParams;
   const statuses = Object.values(IssueStatus);
   const validStatus = statuses.includes(status) ? status : undefined;
-  console.log("Got: " + status);
   const validOrderBy = columns.map((column) => column.value).includes(orderBy)
     ? { [orderBy]: "asc" }
     : undefined;
