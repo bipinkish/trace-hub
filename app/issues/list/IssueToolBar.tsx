@@ -5,7 +5,7 @@ import IssueStatusFilter from "./IssueStatusFilter";
 
 const IssueToolBar = () => {
   return (
-    <Flex mb={"5"} justify={"between"}>
+    <Flex justify={"between"}>
       <IssueStatusFilter />
       <Button variant="solid" size="2">
         <Link href={"/issues/new"}> New Issue</Link>
