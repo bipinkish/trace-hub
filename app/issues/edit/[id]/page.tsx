@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import IssueClientWrapper from "./IssueClientWrapper";
 
 interface EditIssuePageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function EditIssuePage({ params }: EditIssuePageProps) {

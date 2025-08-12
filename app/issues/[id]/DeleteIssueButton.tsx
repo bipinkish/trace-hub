@@ -19,6 +19,7 @@ const DeleteIssueButton = ({ issueId }: DeleteIssueButtonProps) => {
       router.push("/issues/list");
       router.refresh();
     } catch (error) {
+      console.error("Error deleting issue:", error);
       setIsDeleting(false);
       setError(true);
     }
@@ -54,7 +55,7 @@ const DeleteIssueButton = ({ issueId }: DeleteIssueButtonProps) => {
         <AlertDialog.Content>
           <AlertDialog.Title>Error</AlertDialog.Title>
           <AlertDialog.Description>
-            This issue couldn't be deleted!
+            This issue couldn&apos;t be deleted!{" "}
           </AlertDialog.Description>
           <Button
             color="gray"

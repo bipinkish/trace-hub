@@ -2,9 +2,9 @@
 import { IssueStatusBadge } from "@/app/components";
 import { Issue, IssueStatus } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
-import "./StatusSelect.css";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import "./StatusSelect.css";
 
 const StatusSelect = ({ issue }: { issue: Issue }) => {
   const statusMap: Record<IssueStatus, string> = {
@@ -32,7 +32,7 @@ const StatusSelect = ({ issue }: { issue: Issue }) => {
         <Select.Trigger placeholder="Unassigned" />
         <Select.Content>
           <Select.Group>
-            {Object.entries(statusMap).map(([status, label]) => (
+            {Object.entries(statusMap).map(([status]) => (
               <Select.Item
                 className="custom-select-item"
                 key={status}

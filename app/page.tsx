@@ -32,3 +32,5 @@ export const metadata: Metadata = {
   description:
     "Dashboard for TraceHub, showcasing issue statistics and latest updates.",
 };
+
+export const dynamic = "force-dynamic";

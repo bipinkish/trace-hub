@@ -1,5 +1,4 @@
 import { authOptions } from "@/app/auth/authOptions";
-import { isValidObjectId } from "@/app/utils/utils";
 import { patchIssueSchema } from "@/app/validationSchemas";
 import { prisma } from "@/prisma/client";
 import { getServerSession } from "next-auth";
@@ -7,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions);
 
@@ -49,7 +48,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions);
 
@@ -62,7 +61,7 @@ export async function DELETE(
   });
 
   if (!issue) {
-    return NextResponse.json({ error: "Invalid Issue" }, { status: 401 });
+    return NextResponse.json({ error: "Invalid Issue" }, { status: 404 });
   }
 
   await prisma.issue.delete({

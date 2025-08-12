@@ -1,20 +1,19 @@
+import { authOptions } from "@/app/auth/authOptions";
+import { isValidObjectId } from "@/app/utils/utils";
 import { prisma } from "@/prisma/client";
 import { Box, Flex, Grid } from "@radix-ui/themes";
+import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
+import { cache } from "react";
+import AssigneeSelect from "./AssigneeSelect";
+import DeleteIssueButton from "./DeleteIssueButton";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
-import DeleteIssueButton from "./DeleteIssueButton";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/auth/authOptions";
-import AssigneeSelect from "./AssigneeSelect";
-import { isValidObjectId } from "@/app/utils/utils";
-import { Description } from "@radix-ui/themes/components/alert-dialog";
-import { cache } from "react";
 
 interface IssueDetailsPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 const fetchIssue = cache((issueId: string) =>

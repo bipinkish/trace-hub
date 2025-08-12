@@ -2,19 +2,17 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import z from "zod";
 
 import ErrorMessage from "@/app/components/ErrorMessage";
 import { issueSchema } from "@/app/validationSchemas";
+import { Issue } from "@prisma/client";
 import { Box, Button, Callout, Spinner, TextField } from "@radix-ui/themes";
 import "easymde/dist/easymde.min.css";
-import { Issue } from "@prisma/client";
 import SimpleMDE from "react-simplemde-editor";
 
 type IssueFormData = z.infer<typeof issueSchema>;

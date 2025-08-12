@@ -1,5 +1,4 @@
 "use client";
-import { Box } from "@radix-ui/themes";
 import dynamic from "next/dynamic";
 import IssueFormSkeleton from "../_components/IssueFormSkeleton";
 

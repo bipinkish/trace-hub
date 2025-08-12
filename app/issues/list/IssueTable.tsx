@@ -10,7 +10,7 @@ interface SearchParams {
   sortDir: string;
 }
 interface Props {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
   issues: Issue[];
 }
 

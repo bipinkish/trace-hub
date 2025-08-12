@@ -1,12 +1,16 @@
-import { Box, Button, Flex } from "@radix-ui/themes";
+"use client";
+
+import { Button, Flex } from "@radix-ui/themes";
 import Link from "next/link";
-import React from "react";
 import IssueStatusFilter from "./IssueStatusFilter";
+import { Suspense } from "react";
 
 const IssueToolBar = () => {
   return (
     <Flex justify={"between"}>
-      <IssueStatusFilter />
+      <Suspense fallback={<div>Loading filters...</div>}>
+        <IssueStatusFilter />
+      </Suspense>
       <Button variant="solid" size="2">
         <Link href={"/issues/new"}> New Issue</Link>
       </Button>

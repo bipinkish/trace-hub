@@ -7,12 +7,12 @@ import { Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     status: IssueStatus;
     orderBy: keyof Issue;
     page: string;
     sortDir: string;
-  };
+  }>;
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
