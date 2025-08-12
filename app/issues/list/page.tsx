@@ -4,6 +4,7 @@ import { Issue, IssueStatus } from "@prisma/client";
 import IssueTable, { columnNames } from "./IssueTable";
 import IssueToolBar from "./IssueToolBar";
 import { Flex } from "@radix-ui/themes";
+import { Metadata } from "next";
 
 interface Props {
   searchParams: {
@@ -51,3 +52,9 @@ const IssuesPage = async ({ searchParams }: Props) => {
 };
 
 export default IssuesPage;
+
+export const metadata: Metadata = {
+  title: "TraceHub - Issues",
+  description:
+    "Dashboard for TraceHub, showcasing issue statistics and latest updates.",
+};
