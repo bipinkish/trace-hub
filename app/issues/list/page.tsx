@@ -6,16 +6,21 @@ import IssueToolBar from "./IssueToolBar";
 import { Flex } from "@radix-ui/themes";
 
 interface Props {
-  searchParams: { status: IssueStatus; orderBy: keyof Issue; page: string };
+  searchParams: {
+    status: IssueStatus;
+    orderBy: keyof Issue;
+    page: string;
+    sortDir: string;
+  };
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
-  const { status, orderBy, page } = await searchParams;
+  const { status, orderBy, page, sortDir } = await searchParams;
   const statuses = Object.values(IssueStatus);
   const validStatus = statuses.includes(status) ? status : undefined;
   const where = { status: validStatus };
   const validOrderBy = columnNames.includes(orderBy)
-    ? { [orderBy]: "asc" }
+    ? { [orderBy]: sortDir }
     : undefined;
 
   const currentPage = parseInt(page) || 1;

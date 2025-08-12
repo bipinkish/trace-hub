@@ -1,13 +1,13 @@
 import { IssueStatusBadge } from "@/app/components";
 import { Issue, IssueStatus } from "@prisma/client";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { ArrowDownIcon, ArrowUpIcon } from "@radix-ui/react-icons";
 import { Table } from "@radix-ui/themes";
 import { default as Link, default as NextLink } from "next/link";
 
 interface SearchParams {
   status: IssueStatus;
   orderBy: keyof Issue;
-  page: string;
+  sortDir: string;
 }
 interface Props {
   searchParams: SearchParams;
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const IssueTable = async ({ searchParams, issues }: Props) => {
-  const { status, orderBy, page } = await searchParams;
+  const { status, orderBy, sortDir } = await searchParams;
 
   return (
     <Table.Root variant="surface" className="w-full">
@@ -31,12 +31,24 @@ const IssueTable = async ({ searchParams, issues }: Props) => {
                   query: {
                     status,
                     orderBy: column.value,
+                    sortDir:
+                      column.value === orderBy
+                        ? sortDir === "asc"
+                          ? "desc"
+                          : "asc"
+                        : "asc",
                   },
                 }}
               >
                 {column.label}
               </NextLink>
-              {column.value === orderBy && <ArrowUpIcon className="inline" />}
+              {column.value === orderBy ? (
+                sortDir === "asc" ? (
+                  <ArrowUpIcon className="inline" />
+                ) : (
+                  <ArrowDownIcon className="inline" />
+                )
+              ) : null}
             </Table.ColumnHeaderCell>
           ))}
         </Table.Row>
