@@ -9,12 +9,19 @@ import { authOptions } from "@/app/auth/authOptions";
 import AssigneeSelect from "./AssigneeSelect";
 import { isValidObjectId } from "@/app/utils/utils";
 import { Description } from "@radix-ui/themes/components/alert-dialog";
+import { cache } from "react";
 
 interface IssueDetailsPageProps {
   params: {
     id: string;
   };
 }
+
+const fetchIssue = cache((issueId: string) =>
+  prisma.issue.findUnique({
+    where: { id: issueId },
+  })
+);
 
 const IssueDetailsPage = async ({ params }: IssueDetailsPageProps) => {
   const session = await getServerSession(authOptions);
@@ -24,9 +31,7 @@ const IssueDetailsPage = async ({ params }: IssueDetailsPageProps) => {
     return notFound();
   }
 
-  const issue = await prisma.issue.findUnique({
-    where: { id },
-  });
+  const issue = await fetchIssue(id);
 
   if (!issue) {
     return notFound();
@@ -49,8 +54,9 @@ const IssueDetailsPage = async ({ params }: IssueDetailsPageProps) => {
 };
 
 export async function generateMetadata({ params }: IssueDetailsPageProps) {
+  const { id } = await params;
   const issue = await prisma.issue.findUnique({
-    where: { id: params.id },
+    where: { id },
   });
   return {
     title: issue?.title,
